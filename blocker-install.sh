@@ -42,3 +42,12 @@ curl http://www.ipdeny.com/ipblocks/ 2>/dev/null |grep "<tr><td><p>" | sed 's/<t
 
 #create config for port opening in geoip whitelistning
 touch /etc/blocker/geoblock_open_ports.conf
+
+#create whitelis ip list
+touch /etc/blocker/whitelist.txt
+
+mv ./blocker-worker.sh /etc/blocker/blocker-worker.sh
+mv ./geoblock_helper.sh /etc/blocker/geoblock_helper.sh
+mv ./geoblock_helper2.sh /etc/blocker/geoblock_helper2.sh
+mv ./portscan_helper.sh /etc/blocker/portscan_helper.sh
+
