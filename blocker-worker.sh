@@ -24,11 +24,10 @@ iptables -N blocker-scan
 iptables -t filter -A INPUT -j blocker-scan
 fi
 
-#grep fatal messages frpm authlog
+#grep fatal messages from authlog
 bad_ips="$(grep -a "fatal" /var/log/auth.log | awk '{print $11 }' | uniq)"
-#echo $bad_ips
 
-/etc/blocker/portscan_helper.sh $bad_ips
+#/etc/blocker/portscan_helper.sh $bad_ips
 
 
 #create the chaon fpr the blocked ips
