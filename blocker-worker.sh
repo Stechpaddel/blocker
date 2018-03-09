@@ -27,7 +27,7 @@ fi
 #grep fatal messages from authlog
 bad_ips="$(grep -a "fatal" /var/log/auth.log | awk '{print $11 }' | uniq)"
 
-#/etc/blocker/portscan_helper.sh $bad_ips
+/etc/blocker/portscan_helper.sh $bad_ips
 
 
 #create the chaon fpr the blocked ips
