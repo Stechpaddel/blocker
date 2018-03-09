@@ -51,3 +51,4 @@ cp ./geoblock_helper.sh /etc/blocker/geoblock_helper.sh
 cp ./geoblock_helper2.sh /etc/blocker/geoblock_helper2.sh
 cp ./portscan_helper.sh /etc/blocker/portscan_helper.sh
 cp ./whitelist_helper.sh /etc/blocker/whitelist_helper.sh
+cp ./all_zones-update.sh /etc/blocker/all_zones-update.sh
