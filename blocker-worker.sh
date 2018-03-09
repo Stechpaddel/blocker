@@ -52,6 +52,6 @@ s8="Chain INPUT (policy ACCEPT)"
 
 if [ "$s7" == "$s8" ];
 then
-ptables -P INPUT DROP
+iptables -P INPUT DROP
 fi
 
