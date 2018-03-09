@@ -1,6 +1,8 @@
 #!/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
+iptables -F blocker-white
+
 s5="$(iptables -L -n | grep blocker-white | grep Chain | awk '{print $2}')"
 s6="blocker-white"
 
@@ -29,6 +31,7 @@ bad_ips="$(grep -a "fatal" /var/log/auth.log | awk '{print $11 }' | uniq)"
 
 /etc/blocker/portscan_helper.sh $bad_ips
 
+iptables -F blocker-geo
 
 #create the chaon fpr the blocked ips
 s1="$(iptables -L -n | grep blocker-geo | grep Chain | awk '{print $2}')"
