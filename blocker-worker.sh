@@ -46,3 +46,12 @@ unblock_countries="$(grep yes /etc/blocker/geoblock.conf | awk '{print $(NF-1)}'
 #unblock_ips="$(cat /etc/blocker/contries/zones/$unblock_countries.zone)"
 
 /etc/blocker/geoblock_helper.sh $unblock_countries
+
+s7="$(iptables -L -n | grep "Chain INPUT (policy ACCEPT)")"
+s8="Chain INPUT (policy ACCEPT)"
+
+if [ "$s7" == "$s8" ];
+then
+ptables -P INPUT DROP
+fi
+
