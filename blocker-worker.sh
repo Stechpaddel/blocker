@@ -25,7 +25,7 @@ iptables -t filter -A INPUT -j blocker-scan
 fi
 
 #grep fatal messages frpm authlog
-bad_ips="$(grep "fatal" /var/log/auth.log | awk '{print $11 }' | uniq)"
+bad_ips="$(grep -a "fatal" /var/log/auth.log | awk '{print $11 }' | uniq)"
 #echo $bad_ips
 
 /etc/blocker/portscan_helper.sh $bad_ips
