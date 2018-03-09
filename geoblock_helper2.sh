@@ -5,6 +5,7 @@ for var in "$@"
 do
 #echo $var >> /etc/blocker/unblock_countries_ips.txt 
 iptables -I blocker-geo -s $var -p TCP --dport 80 -j ACCEPT
+iptables -I blocker-geo -s $var -p TCP --dport 443 -j ACCEPT
 done
 
 exist="$(iptables -L blocker-geo -n | grep RETURN | awk '{print $1}' | sed '2,$d')" 
