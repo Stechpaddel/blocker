@@ -1,6 +1,15 @@
 #!/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
+s5="$(iptables -L -n | grep blocker-white | awk '{print $2}')"
+s6="blocker-white"
+
+if [ "$s3" != "$s4" ];
+then
+iptables -N blocker-white
+iptables -t filter -A INPUT -j blocker-white
+fi
+
 s3="$(iptables -L -n | grep blocker-scan | awk '{print $2}')"
 s4="blocker-scan"
 
@@ -8,7 +17,6 @@ if [ "$s3" != "$s4" ];
 then
 iptables -N blocker-scan
 iptables -t filter -A INPUT -j blocker-scan
-echo "chain created"
 fi
 
 #grep fatal messages frpm authlog
@@ -26,7 +34,6 @@ if [ "$s1" != "$s2" ];
 then
 iptables -N blocker-geo
 iptables -t filter -A INPUT -j blocker-geo
-echo "chain created"
 fi
 
 # exclude the countrys you will allow
@@ -34,4 +41,4 @@ unblock_countries="$(grep yes /etc/blocker/geoblock.conf | awk '{print $(NF-1)}'
 
 #unblock_ips="$(cat /etc/blocker/contries/zones/$unblock_countries.zone)"
 
-sh /root/blocker/geoblock_helper.sh $unblock_countries
+/root/blocker/geoblock_helper.sh $unblock_countries
