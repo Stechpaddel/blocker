@@ -22,7 +22,7 @@ fi
 #all_zones="/etc/blocker/countries/all-zones.tar.gz"
 if [ ! -f  /etc/blocker/countries/all-zones.tar.gz ]
 then
-wget -P /etc/blocker/contries/ http://www.ipdeny.com/ipblocks/data/countries/all-zones.tar.gz
+wget -P /etc/blocker/countries/ http://www.ipdeny.com/ipblocks/data/countries/all-zones.tar.gz
 fi
 
 
