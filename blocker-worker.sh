@@ -1,6 +1,15 @@
 #!/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
+s9="$(iptables -L -n | grep ESTABLISHED | awk '{print $2}')"
+s10="RELATED,ESTABLISHED"
+
+if [ "$s5" != "$s6" ];
+then
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+fi
+
+
 iptables -F blocker-white
 
 s5="$(iptables -L -n | grep blocker-white | grep Chain | awk '{print $2}')"
