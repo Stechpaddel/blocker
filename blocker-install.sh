@@ -47,8 +47,4 @@ touch /etc/blocker/geoblock_open_ports.conf
 touch /etc/blocker/whitelist.txt
 
 cp ./blocker/blocker-worker.sh /etc/blocker/blocker-worker.sh
-cp ./blocker/geoblock_helper.sh /etc/blocker/geoblock_helper.sh
-cp ./blocker/geoblock_helper2.sh /etc/blocker/geoblock_helper2.sh
-cp ./blocker/portscan_helper.sh /etc/blocker/portscan_helper.sh
-cp ./blocker/whitelist_helper.sh /etc/blocker/whitelist_helper.sh
 cp ./blocker/all_zones-update.sh /etc/blocker/all_zones-update.sh
