@@ -85,16 +85,21 @@ iptables -F blocker-geo
 
 unblock_countries="$(grep yes /etc/blocker/geoblock.conf | awk '{print $(NF-1)}' | sed 's/(//' | sed 's/)//' | tr '[:upper:]' '[:lower:]')"
 
+open_ports="$(cat geoblock_open_ports.conf)"
+
 for var3 in $unblock_countries
 do
 unblock_ips="$(cat /etc/blocker/countries/zones/$var3.zone)"
 
 for var4 in $unblock_ips
 do
-iptables -I blocker-geo -s $var4 -p TCP --dport 80 -j ACCEPT
-iptables -I blocker-geo -s $var4 -p TCP --dport 443 -j ACCEPT
-done
 
+for var5 in $open_ports
+do
+
+iptables -I blocker-geo -s $var4 -p TCP --dport $var5 -j ACCEPT
+done
+done
 done
 
 exist="$(iptables -L blocker-geo -n | grep RETURN | awk '{print $1}' | sed '2,$d')"
