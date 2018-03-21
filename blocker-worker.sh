@@ -85,7 +85,7 @@ iptables -F blocker-geo
 
 unblock_countries="$(grep yes /etc/blocker/geoblock.conf | awk '{print $(NF-1)}' | sed 's/(//' | sed 's/)//' | tr '[:upper:]' '[:lower:]')"
 
-open_ports="$(cat geoblock_open_ports.conf)"
+open_ports="$(cat /etc/blocker/geoblock_open_ports.conf)"
 
 for var3 in $unblock_countries
 do
