@@ -46,5 +46,8 @@ touch /etc/blocker/geoblock_open_ports.conf
 #create whitelis ip list
 touch /etc/blocker/whitelist.txt
 
-cp ./blocker/blocker-worker.sh /etc/blocker/blocker-worker.sh
 cp ./blocker/all_zones-update.sh /etc/blocker/all_zones-update.sh
+cp ./blocker/geoblock-worker.sh /etc/blocker/geoblock-worker.sh
+cp ./blocker/scanblock-worker.sh /etc/blocker/scanblock-worker.sh
+cp ./blocker/whitelist-worker.sh /etc/blocker/whitelist-worker.sh
+
