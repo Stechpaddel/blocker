@@ -57,7 +57,7 @@ cp ./blocker/whitelist-worker.sh /etc/blocker/whitelist-worker.sh
 s9="$(iptables -L -n | grep ESTABLISHED | awk '{print $2}')"
 s10="RELATED,ESTABLISHED"
 
-if [ "$s5" != "$s6" ];
+if [ "$s9" != "$s10" ];
 then
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 fi
