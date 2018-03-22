@@ -21,7 +21,7 @@ iptables -N blocker-scan
 iptables -t filter -A INPUT -j blocker-scan
 fi
 
-bad_ips="$(grep -a "fatal" /var/log/auth.log | awk '{print $11 }' | uniq)"
+bad_ips="$(grep -a "scanlog" /var/log/syslog | grep "port" |awk '{print $6 }' | sed 's/:.*//' | uniq)"
 
 for var2 in $bad_ips
 do
