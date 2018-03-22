@@ -59,7 +59,7 @@ s10="RELATED,ESTABLISHED"
 
 if [ "$s9" != "$s10" ];
 then
-iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -I INPUT 1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 fi
 
 #create whitelist chain
@@ -98,8 +98,11 @@ filter_comp="blocker-white"
 
 if [ "$filter_exist" != "$filter_comp" ];
 then
-iptables -t filter -I INPUT 1 -j blocker-white
+iptables -t filter -I INPUT 2 -j blocker-white
 iptables -t filter -A INPUT -j blocker-scan
 iptables -t filter -A INPUT -j blocker-geo
+iptables -A blocker-white -j RETURN
+iptables -A blocker-scan -j RETURN
+iptables -A blocker-geo -j RETURN
 fi
 
