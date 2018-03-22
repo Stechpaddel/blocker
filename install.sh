@@ -70,7 +70,6 @@ s6="blocker-white"
 if [ "$s5" != "$s6" ];
 then
 iptables -N blocker-white
-iptables -t filter -A INPUT -j blocker-white
 fi
 
 
@@ -99,8 +98,8 @@ filter_comp="blocker-white"
 
 if [ "$filter_exist" != "$filter_comp" ];
 then
+iptables -t filter -I INPUT 1 -j blocker-white
 iptables -t filter -A INPUT -j blocker-scan
 iptables -t filter -A INPUT -j blocker-geo
-iptables -t filter -I INPUT 1 -j blocker-white
 fi
 
