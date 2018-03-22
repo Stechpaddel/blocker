@@ -73,18 +73,6 @@ iptables -N blocker-white
 iptables -t filter -A INPUT -j blocker-white
 fi
 
-# check if forward to the chains exist
-filter_exist="$(iptables -L -n | grep blocker-white | grep Chain | awk '{print $2}')"
-filter_comp="blocker-white"
-
-if [ "$filter_exist" != "$filter_comp" ];
-then
-iptables -t filter -A INPUT -j blocker-white
-iptables -t filter -A INPUT -j blocker-scan
-iptables -t filter -A INPUT -j blocker-geo
-fi
-
-
 
 #create portscan block chain
 s3="$(iptables -L -n | grep blocker-scan | grep Chain | awk '{print $2}')"
@@ -102,5 +90,17 @@ s2="blocker-geo"
 if [ "$s1" != "$s2" ];
 then
 iptables -N blocker-geo
+fi
+
+
+# check if forward to the chains exist
+filter_exist="$(iptables -L -n | grep blocker-white | grep Chain | awk '{print $2}')"
+filter_comp="blocker-white"
+
+if [ "$filter_exist" != "$filter_comp" ];
+then
+iptables -t filter -A INPUT -j blocker-white
+iptables -t filter -A INPUT -j blocker-scan
+iptables -t filter -A INPUT -j blocker-geo
 fi
 
