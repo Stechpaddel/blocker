@@ -99,8 +99,8 @@ filter_comp="blocker-white"
 if [ "$filter_exist" != "$filter_comp" ];
 then
 iptables -t filter -I INPUT 2 -j blocker-white
-iptables -t filter -A INPUT -j blocker-scan
-iptables -t filter -A INPUT -j blocker-geo
+iptables -t filter -I INPUT 3 -j blocker-scan
+iptables -t filter -I INPUT 4 -j blocker-geo
 iptables -A blocker-white -j RETURN
 iptables -A blocker-scan -j RETURN
 iptables -A blocker-geo -j RETURN
