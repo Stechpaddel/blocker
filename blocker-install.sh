@@ -94,7 +94,7 @@ fi
 
 
 # check if forward to the chains exist
-filter_exist="$(iptables -L -n | grep blocker-white | grep Chain | awk '{print $2}')"
+filter_exist="$(iptables -L -n | grep 0.0.0.0/0 | grep blocker-white | awk '{print $1}')"
 filter_comp="blocker-white"
 
 if [ "$filter_exist" != "$filter_comp" ];
