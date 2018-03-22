@@ -54,7 +54,7 @@ cp ./blocker/whitelist-worker.sh /etc/blocker/whitelist-worker.sh
 #create iptables chains
 
 #allow established connections
-s9="$(ptables -L -n | grep ESTABLISHED | awk '{print $7}' | uniq)"
+s9="$(iptables -L -n | grep ESTABLISHED | awk '{print $7}' | uniq)"
 s10="RELATED,ESTABLISHED"
 
 if [ "$s9" != "$s10" ];
