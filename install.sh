@@ -46,6 +46,7 @@ touch /etc/blocker/geoblock_open_ports.conf
 #create whitelis ip list
 touch /etc/blocker/whitelist.txt
 
+#copy the other scrips in the directory
 cp ./blocker/all_zones-update.sh /etc/blocker/all_zones-update.sh
 cp ./blocker/geoblock-worker.sh /etc/blocker/geoblock-worker.sh
 cp ./blocker/scanblock-worker.sh /etc/blocker/scanblock-worker.sh
@@ -92,7 +93,7 @@ iptables -N blocker-geo
 fi
 
 
-# check if forward to the chains exist
+# check if forward to the chains exist and the fule back to input
 filter_exist="$(iptables -L -n | grep 0.0.0.0/0 | grep blocker-white | awk '{print $1}')"
 filter_comp="blocker-white"
 
