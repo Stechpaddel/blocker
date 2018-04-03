@@ -24,16 +24,23 @@ fi
 iptables -F blocker-white
 
 #set the ips als value and set them to allow, there are checked for dublicate
-white_ips="$(cat /etc/blocker/whitelist.txt)"
+white_ips="$(cat /etc/blocker/whitelist.txt | awk '{print $1}')"
 for var1 in $white_ips
 do
 dub_check="$(echo $var1)"
 dub_comp="$(iptables -L blocker-white -n | grep $var1 | uniq | awk ' {print $4}')"
+white_port="$(grep "$var1" /etc/blocker/whitelist.txt)"
 
 if [ "$dub_check" != "$dub_comp" ];
 then
-iptables -I blocker-white -s $var1 -p TCP -j ACCEPT
+
+for var2 in $white_port
+do
+iptables -I blocker-white -s $var1 -p TCP --dport $var2 -j ACCEPT
+done
+
 fi
+
 done
 
 #check if return string to input chain exist, possibly create them
