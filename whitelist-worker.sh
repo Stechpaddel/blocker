@@ -29,7 +29,7 @@ for var1 in $white_ips
 do
 dub_check="$(echo $var1)"
 dub_comp="$(iptables -L blocker-white -n | grep $var1 | uniq | awk ' {print $4}')"
-white_port="$(grep "$var1" /etc/blocker/whitelist.txt)"
+white_port="$(grep "$var1" /etc/blocker/whitelist.txt | awk '{ $1=""; ; print}')"
 
 if [ "$dub_check" != "$dub_comp" ];
 then
