@@ -9,6 +9,7 @@ s10="RELATED,ESTABLISHED"
 if [ "$s5" != "$s6" ];
 then
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+echo `date` established connection accept rule not exist, added >> /etc/blocker/blocker-log.txt
 fi
 
 #check if the blocker-scan chain exist, if no create them and passtrough ther traffic
@@ -19,6 +20,7 @@ if [ "$s3" != "$s4" ];
 then
 iptables -N blocker-scan
 iptables -t filter -A INPUT -j blocker-scan
+echo `date` blocker-scan chain and filter rule not exist, added  >> /etc/blocker/blocker-log.txt
 fi
 
 #grep the syslog to the tag "scanlog" rom the scanlogd and filter the ip where the scan came drom
@@ -44,6 +46,7 @@ comp="RETURN"
 if [ "$exist" != "$comp" ]
 then
 iptables -A blocker-scan -j RETURN
+echo `date` blocker-scan return rule not exist, added >> /etc/blocker/blocker-log.txt
 fi
 
 #check is iput default policy deny, and set them if no
@@ -53,4 +56,5 @@ s8="Chain INPUT (policy ACCEPT)"
 if [ "$s7" == "$s8" ];
 then
 iptables -P INPUT DROP
+echo `date` default input set to drop >> /etc/blocker/blocker-log.txt
 fi

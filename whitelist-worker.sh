@@ -8,6 +8,7 @@ s10="RELATED,ESTABLISHED"
 if [ "$s5" != "$s6" ];
 then
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+echo `date` established connection accept rule not exist, added >> /etc/blocker/blocker-log.txt
 fi
 
 #check if the blocker-white chain exist, if no create them and passtrough ther traffic
@@ -18,11 +19,12 @@ if [ "$s5" != "$s6" ];
 then
 iptables -N blocker-white
 iptables -t filter -A INPUT -j blocker-white
+echo `date` blocker-geo chain and filter rule not exist, added  >> /etc/blocker/blocker-log.txt
 fi
 
 #flush the tables to remove old entrys
 iptables -F blocker-white
-
+echo  `date` flush blocker-white table >> /etc/blocker/blocker-log.txt
 #set the ips als value and set them to allow, there are checked for dublicate
 white_ips="$(cat /etc/blocker/whitelist.txt | awk '{print $1}')"
 for var1 in $white_ips
@@ -50,6 +52,7 @@ comp="RETURN"
 if [ "$exist" != "$comp" ]
 then
 iptables -A blocker-white -j RETURN
+echo `date` blocker-white return rule not exist, added >> /etc/blocker/blocker-log.txt
 fi
 
 #check is iput default policy deny, and set them if no
@@ -59,5 +62,6 @@ s8="Chain INPUT (policy ACCEPT)"
 if [ "$s7" == "$s8" ];
 then
 iptables -P INPUT DROP
+echo `date` default input set to drop  >> /etc/blocker/blocker-log.txt
 fi
 
