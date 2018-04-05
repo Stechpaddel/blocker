@@ -55,8 +55,6 @@ touch /etc/blocker/whitelist.txt
 echo `date` create whitelist.txt >> /etc/blocker/blocker-log.txt
 
 #copy the other scrips in the directory
-cp ./blocker/all_zones-update.sh /etc/blocker/all_zones-update.sh
-echo `date` copy all_zones-update.sh >> /etc/blocker/blocker-log.txt
 cp ./blocker/geoblock-worker.sh /etc/blocker/geoblock-worker.sh
 echo `date` copy geoblock-worker.sh  >> /etc/blocker/blocker-log.txt
 cp ./blocker/scanblock-worker.sh /etc/blocker/scanblock-worker.sh
@@ -122,6 +120,16 @@ iptables -A blocker-white -j RETURN
 iptables -A blocker-scan -j RETURN
 iptables -A blocker-geo -j RETURN
 echo `date` create filter and return rules >> /etc/blocker/blocker-log.txt
+fi
+
+
+cron_geo_exist="$(ls /etc/cron.monthly/ | grep blocker-geoip)"
+cron_geo_comp="blocker-geoip"
+
+if [ "$cron_geo_exist" != "$cron_geo_comp" ];
+then
+cp ./blocker/blocker-geoip /etc/cron.monthly/blocker-geoip
+echo `date` setup geoblock database update>> /etc/blocker/blocker-log.txt
 fi
 
 
