@@ -11,6 +11,16 @@ iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 echo `date` established connection accept rule not exist, added >> /etc/blocker/blocker-log.txt
 fi
 
+#allow localhost connections
+localhost_check="$(iptables -nvL | grep "lo" | awk '{print $6}')"
+localhost_comp="lo"
+
+if [ "$localhost_check" != "$localhost_comp" ];
+then
+iptables -A INPUT -i lo -j ACCEPT
+echo `date` add localhost connection accept >> /etc/blocker/blocker-log.txt
+fi
+
 #check if the blocker-geo chain exist, if no create them and passtrough ther traffic
 s1="$(iptables -L -n | grep blocker-geo | grep Chain | awk '{print $2}')"
 s2="blocker-geo"

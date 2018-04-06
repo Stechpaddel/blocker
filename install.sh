@@ -74,6 +74,17 @@ iptables -I INPUT 1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 echo `date` add established connection accept >> /etc/blocker/blocker-log.txt
 fi
 
+
+#allow established connections
+localhost_check="$(iptables -nvL | grep "lo" | awk '{print $6}')"
+localhost_comp="lo"
+
+if [ "$localhost_check" != "$localhost_comp" ];
+then
+iptables -A INPUT -i lo -j ACCEPT
+echo `date` add localhost connection accept >> /etc/blocker/blocker-log.txt
+fi
+
 #create whitelist chain
 
 s5="$(iptables -L -n | grep blocker-white | grep Chain | awk '{print $2}')"
